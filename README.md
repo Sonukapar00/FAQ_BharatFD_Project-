@@ -1,37 +1,38 @@
-# Django FAQ Project
+# Knowledge Base Manager
 
-This is a Django-based web application for managing multilingual FAQs. The project allows users to view and manage FAQs with support for multiple languages. It also includes a WYSIWYG editor for formatting answers and a caching mechanism to optimize performance.
+This is a Django-based web application designed to manage a structured knowledge base. The project allows users to create, categorize, and search articles, making information easily accessible. The system includes user authentication, role-based permissions, and API endpoints for integration.
 
 ## Features
 
-- Multilingual FAQ management
-- WYSIWYG editor (django-ckeditor) for formatting answers
-- Caching using Redis to improve performance
-- REST API for managing FAQs and selecting languages
-- Docker support for easy deployment
+- User authentication and role-based access control
+- Categorization of knowledge base articles
+- Full-text search functionality
+- Markdown editor for rich text formatting
+- REST API for retrieving articles and categories
+- Docker support for seamless deployment
 
-## Prerequisites
+## Requirements
 
-Before running the project, ensure you have the following installed:
+Ensure you have the following installed before running the project:
 
 - Python 3.x
 - Django 5.x
-- Redis (for caching)
-- Google Translate API or googletrans library (for translation)
+- PostgreSQL (or SQLite for development)
+- Elasticsearch (for full-text search)
+- Docker (optional for containerized deployment)
 
-## Installation Steps
+## Installation
 
-### 1. Clone the repository
+### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/faq_project.git
-cd faq_project
+git clone https://github.com/your-username/knowledge-base.git
+cd knowledge-base
 ```
 
-2. Set up a Virtual Environment
-It's recommended to use a virtual environment for managing dependencies.
+### 2. Set Up a Virtual Environment
 
-``` bash
+```bash
 python -m venv venv
 ```
 
@@ -39,122 +40,90 @@ Activate the virtual environment:
 
 Windows:
 
-``` bash
-
-.\venv\Scripts\activate
+```bash
+venv\Scripts\activate
 ```
 
 Mac/Linux:
 
-``` bash
-
+```bash
 source venv/bin/activate
 ```
 
-3. Install Dependencies
-Install the required dependencies from the requirements.txt file.
+### 3. Install Dependencies
 
-``` bash
-
+```bash
 pip install -r requirements.txt
 ```
 
-4. Set up the Database
-Run the migrations to set up the database.
+### 4. Configure the Database
 
-``` bash
+Modify `settings.py` to configure your PostgreSQL database. Then, run migrations:
+
+```bash
 python manage.py migrate
 ```
 
-5. Create a Superuser (Optional)
-To access the Django admin panel, you need to create a superuser.
+### 5. Create a Superuser
 
 ```bash
-
 python manage.py createsuperuser
 ```
 
-Follow the prompts to set the username, email, and password.
+Follow the prompts to set up your admin credentials.
 
-6. Run the Development Server
-Start the Django development server.
+### 6. Start the Development Server
 
 ```bash
 python manage.py runserver
 ```
-The application will be available at http://127.0.0.1:8000/.
 
-API Usage
-You can interact with the FAQ API to fetch FAQs in different languages. Here are some examples:
+Access the application at [http://127.0.0.1:8000/](http://127.0.0.1:8000/).
 
-1. Fetch FAQs in English (default)
+## API Usage
+
+### Endpoints
+
+- `GET /api/articles/` - Retrieve all articles
+- `GET /api/articles/?category=<category_name>` - Retrieve articles by category
+- `GET /api/articles/?search=<query>` - Perform a full-text search
+
+### Example API Calls
+
+Retrieve all articles:
 ```bash
-curl http://127.0.0.1:8000/api/faqs/
+curl http://127.0.0.1:8000/api/articles/
 ```
 
-2. Fetch FAQs in Hindi
+Search articles:
 ```bash
-curl http://127.0.0.1:8000/api/faqs/?lang=hi
+curl http://127.0.0.1:8000/api/articles/?search=django
 ```
 
-3. Fetch FAQs in Bengali
-```bash
-curl http://127.0.0.1:8000/api/faqs/?lang=bn
-```
+## Deployment with Docker
 
-API Endpoints
-GET /api/faqs/: Fetch all FAQs.
-GET /api/faqs/?lang=<language_code>: Fetch FAQs in a specific language.
-Admin Panel
-To access the Django admin panel, visit http://127.0.0.1:8000/admin/ and log in with the superuser credentials you created earlier.
-
-Managing FAQs
-You can add, edit, and delete FAQs directly from the Django admin interface. Each FAQ has:
-
-A question (TextField)
-An answer (formatted with the WYSIWYG editor)
-Translations for different languages
-Testing
-To run the tests for the project:
+Build and run the application with Docker:
 
 ```bash
-pytest
+docker-compose up --build
 ```
 
-Deployment
-Docker Support
-To run the project with Docker, use the following commands:
+## Contributing
 
-Build the Docker image:
-
-```bash
-
-docker build -t faq_project .
-```
-
-Run the container:
-
-```bash
-
-docker run -p 8000:8000 faq_project
-```
-
-The application will be accessible at http://127.0.0.1:8000/.
-
-```markdown
-# Fork the repository.
-- Create a new branch for your changes (`git checkout -b feature-branch`).
-- Commit your changes (`git commit -m "Add feature"`).
-- Push to your branch (`git push origin feature-branch`).
-- Open a pull request.
+1. Fork the repository.
+2. Create a feature branch (`git checkout -b feature-branch`).
+3. Commit your changes (`git commit -m "Add feature"`).
+4. Push the branch (`git push origin feature-branch`).
+5. Open a pull request.
 
 ## License
-This project is licensed under the MIT License - see the LICENSE file for details.
+
+This project is licensed under the MIT License. See the LICENSE file for details.
 
 ## Acknowledgments
-- Django for the web framework.
-- django-ckeditor for the WYSIWYG editor.
-- Google Translate API for multilingual support.
-- Redis for caching.
 
-```
+- Django for the web framework.
+- PostgreSQL for database management.
+- Elasticsearch for full-text search capabilities.
+- Docker for containerized deployment.
+
